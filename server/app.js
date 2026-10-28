@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const path = require('path')
 const config = require('./utils/config')
 const logger = require('./utils/logger')
 const middleware = require('./utils/middleware')
@@ -8,6 +9,8 @@ const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 
 const app = express()
+
+app.use(express.static(path.join(__dirname, '../client/dist')))
 
 logger.info('connecting to', config.MONGODB_URI)
 
@@ -33,8 +36,8 @@ if (process.env.NODE_ENV === 'test') {
   app.use('/api/testing', testingRouter)
 }
 
-app.get('/', (req, res) => {
-  res.status(200).send('OK...')
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'))
 })
 
 app.use(middleware.unknowEndpoint)
