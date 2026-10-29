@@ -26,6 +26,11 @@ jobs:
       run: npm run lint:client
     - name: Run backend test
       run: npm run test:server
+      env:
+        TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+        MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+        SECRET: ${{ secrets.JWT_SECRET }}
+        PORT: 3003
     - name: Run frontend test
       run: npm run test:client
     - name: Build frontend client
