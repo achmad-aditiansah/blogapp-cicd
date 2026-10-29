@@ -17,7 +17,7 @@ describe('when there is initially some blogs saved', () => {
     await Blog.deleteMany({})
     await User.deleteMany({})
 
-    const userData = await helper.createUser(api, { username: 'root', password: 'sikrit', name: 'Superuser' })
+    const userData = await helper.createUser(api, { username: 'root', password: 'root', name: 'Superuser' })
 
     token = userData.token
 
