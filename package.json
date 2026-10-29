@@ -17,7 +17,7 @@
     "build:client": "npm run build --prefix client",
 
     "test:e2e-run": "npm run test --prefix e2e-tests",
-    "test:e2e": "start-server-and-test start:test-server http://localhost:3003 start:client http://localhost:5173 test:e2e-run",
+    "test:e2e": "start-server-and-test start:test-server http://localhost:3003/api/blogs start:client http://localhost:5173 test:e2e-run",
 
     "build:prod": "npm run install:all && npm run build:client",
     "start:prod": "npm start --prefix server"

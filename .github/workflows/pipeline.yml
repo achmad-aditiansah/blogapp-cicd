@@ -1,0 +1,41 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+    - uses: actions/setup-node@v6
+      with:
+        node-version: '24'
+    - name: Install monorepo dependencies
+      run: |
+        npm run install:all
+        npm install --prefix e2e-tests
+    - name: Lint backend
+      run: npm run lint:server
+    - name: Lint frontend
+      run: npm run lint:client
+    - name: Run backend test
+      run: npm run test:server
+    - name: Run frontend test
+      run: npm run test:client
+    - name: Build frontend client
+      run: npm run build:client  
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps --prefix e2e-tests
+    - name: Run e2e test
+      run: npm run test:e2e
+      env:
+        TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+        MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+        SECRET: ${{ secrets.JWT_SECRET }}
+        PORT: 3003
