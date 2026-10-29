@@ -36,7 +36,8 @@ jobs:
     - name: Build frontend client
       run: npm run build:client  
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps --prefix e2e-tests
+      working-directory: e2e-tests
+      run: npx playwright install --with-deps
     - name: Run e2e test
       run: npm run test:e2e
       env:
