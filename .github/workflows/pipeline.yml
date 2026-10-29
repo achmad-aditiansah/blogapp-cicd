@@ -18,6 +18,7 @@ jobs:
         node-version: '24'
     - name: Install monorepo dependencies
       run: |
+        npm install
         npm run install:all
         npm install --prefix e2e-tests
     - name: Lint backend
