@@ -31,7 +31,7 @@ const likeBlog = async (page, title, times = 1) => {
 
   for (let i = 0; i < times; i++) {
     await likeButton.click()
-    await page.waitForTimeout(100) 
+    await page.waitForTimeout(200) 
   }
 }
 
