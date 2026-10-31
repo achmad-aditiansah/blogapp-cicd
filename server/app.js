@@ -36,6 +36,10 @@ if (process.env.NODE_ENV === 'test') {
   app.use('/api/testing', testingRouter)
 }
 
+app.get('/health', (req, res) => {
+  res.send('OK')
+})
+
 app.get('{*splat}', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist', 'index.html'))
 })
